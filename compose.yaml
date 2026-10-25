@@ -8,3 +8,10 @@ services:
     env_file:
       - .env
     restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.social-eagle.rule=Host(`sedeploy.tech`) || Host(`www.sedeploy.tech`)"
+      - "traefik.http.routers.social-eagle.entrypoints=websecure"
+      - "traefik.http.routers.social-eagle.tls=true"
+      - "traefik.http.routers.social-eagle.tls.certresolver=letsencrypt"
+      - "traefik.http.services.social-eagle.loadbalancer.server.port=8501"
